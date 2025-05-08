@@ -18,7 +18,7 @@ public class Skill {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP(6)", updatable = false)
     private LocalDateTime createdAt;
     
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP(6)", updatable = false)
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP(6)")
     private LocalDateTime updatedAt;
     
     @Column(name = "kcount", length = 80) 
@@ -35,6 +35,11 @@ public class Skill {
     
     @OneToMany(mappedBy = "skill")
     private List<SkillRoutePath> skillRoutePaths;
+
+
+    public Skill() {
+    }
+
 
     public Skill(Integer id, LocalDateTime createdAt, LocalDateTime updatedAt, String kcount, String skillName,
             String skillDescription, List<Chapter> chapters, List<SkillRoutePath> skillRoutePaths) {

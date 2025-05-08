@@ -44,14 +44,14 @@ public class Chapter {
     
 
     public Chapter(Integer id, Integer numberchapter, LocalDateTime createdAt, LocalDateTime updatedAt,
-            String description, String chapterSummary, Skill skillRoutePath, List<SubChapter> subChapters) {
+            String description, String chapterSummary, Skill skill, List<SubChapter> subChapters) {
         this.id = id;
         this.numberchapter = numberchapter;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.description = description;
         this.chapterSummary = chapterSummary;
-        this.skill = skillRoutePath;
+        this.skill = skill;
         this.subChapters = subChapters;
     }
 

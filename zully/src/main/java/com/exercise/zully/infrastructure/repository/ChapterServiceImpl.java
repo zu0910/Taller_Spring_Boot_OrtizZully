@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.exercise.zully.aplication.service.ChapterService;
 import com.exercise.zully.domain.Chapter;
+import com.exercise.zully.domain.Skill;
 import com.exercise.zully.domain.SkillRoutePath;
 import com.exercise.zully.domain.dto.ChapterRequest;
 
@@ -17,15 +18,12 @@ import com.exercise.zully.domain.dto.ChapterRequest;
 public class ChapterServiceImpl implements ChapterService {
 
     private final ChapterRespository chapterResponsitory;
-    private final SkillRoutePathRepository skillRoutePathRepository;
+    private final SkillRepository skillRepository;
 
-    public ChapterServiceImpl(ChapterRespository chapterResponsitory,
-            SkillRoutePathRepository skillRoutePathRepository) {
+    public ChapterServiceImpl(ChapterRespository chapterResponsitory,SkillRepository skillRepository) {
         this.chapterResponsitory = chapterResponsitory;
-        this.skillRoutePathRepository = skillRoutePathRepository;
+        this.skillRepository = skillRepository;
     }
-
-
 
     @Override
     public List<Chapter> findAllChapters(){
@@ -43,9 +41,14 @@ public class ChapterServiceImpl implements ChapterService {
 
     @Override
     public boolean createChapter(ChapterRequest chapterRequest){
-        Optional<SkillRoutePath> skillRoutePath = skillRoutePathRepository.findById(chapterRequest.getSkillRoutedId());
+        Optional<Skill> skill = skillRepository.findById(chapterRequest.getSkill());
 
-        if (!skillRoutePath.isPresent()){
+        if (!skill.isPresent()){
+            return false;
+        }
+
+        Optional<Skill> skills = skillRepository.findById(chapterRequest.getSkill());
+        if(!skill.isPresent()){
             return false;
         }
 
@@ -53,16 +56,17 @@ public class ChapterServiceImpl implements ChapterService {
         chapter.setNumberchapter(chapterRequest.getNumberchapter());
         chapter.setDescription(chapterRequest.getDescription());
         chapter.setChapterSummary(chapterRequest.getChapterSummary());
-        chapter.setSkill(skillRoutePath.get());
+        chapter.setSkill(skills.get());
         chapter.setCreatedAt(LocalDateTime.now());
         chapter.setUpdatedAt(LocalDateTime.now());
-
+        
         chapterResponsitory.save(chapter);
         return true;
     }
 
+
     @Override
-    public boolean updateChapter(ChapterRequest chapterRequest){
+    public boolean updateChapter( ChapterRequest chapterRequest){
         Optional<Chapter> chapteOpt = chapterResponsitory.findById(chapterRequest.getId());
 
         if(!chapteOpt.isPresent()){
@@ -78,12 +82,12 @@ public class ChapterServiceImpl implements ChapterService {
         if (chapterRequest.getChapterSummary() != null) {
             chapter.setChapterSummary(chapterRequest.getChapterSummary());
         }
-        if (chapterRequest.getSkillRoutedId() != null) {
-            Optional<SkillRoutePath> skillRoutePath = skillRoutePathRepository.findById(chapterRequest.getSkillRoutedId());
-            if (!skillRoutePath.isPresent()) {
+        if (chapterRequest.getSkill() != null) {
+            Optional<Skill> skill = skillRepository.findById(chapterRequest.getSkill());
+            if (!skill.isPresent()) {
                 return false;
             }
-            chapter.setSkill(skillRoutePath.get());
+            chapter.setSkill(skill.get());
         }
         chapter.setUpdatedAt(LocalDateTime.now());
 

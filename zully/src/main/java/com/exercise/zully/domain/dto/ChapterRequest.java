@@ -6,7 +6,7 @@ public class ChapterRequest {
     private Integer numberchapter;
     private String description;
     private String chapterSummary;
-    private Integer skillRoutedId;
+    private Integer skill;
 
     
 
@@ -15,22 +15,19 @@ public class ChapterRequest {
 
     
     public ChapterRequest(Integer id, Integer numberchapter, String description, String chapterSummary,
-            Integer skillRoutedId) {
+            Integer skill) {
         this.id = id;
         this.numberchapter = numberchapter;
         this.description = description;
         this.chapterSummary = chapterSummary;
-        this.skillRoutedId = skillRoutedId;
+        this.skill = skill;
     }
 
-    
-
-
-    public ChapterRequest(Integer numberchapter, String description, String chapterSummary, Integer skillRoutedId) {
+    public ChapterRequest(Integer numberchapter, String description, String chapterSummary, Integer skill) {
         this.numberchapter = numberchapter;
         this.description = description;
         this.chapterSummary = chapterSummary;
-        this.skillRoutedId = skillRoutedId;
+        this.skill = skill;
     }
 
 
@@ -52,17 +49,22 @@ public class ChapterRequest {
     public void setChapterSummary(String chapterSummary) {
         this.chapterSummary = chapterSummary;
     }
-    public Integer getSkillRoutedId() {
-        return skillRoutedId;
-    }
-    public void setSkillRoutedId(Integer skillRoutedId) {
-        this.skillRoutedId = skillRoutedId;
-    }
+    
     public Integer getId() {
         return id;
     }
     public void setId(Integer id) {
         this.id = id;
+    }
+
+
+    public Integer getSkill() {
+        return skill;
+    }
+
+
+    public void setSkill(Integer skill) {
+        this.skill = skill;
     }
 
     

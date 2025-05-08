@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -59,6 +61,17 @@ public class ChapterController {
             return ResponseEntity.ok("Capitulo eliminado");
         } else {
             return ResponseEntity.badRequest().body("No se pudo eliminar los capitulos");
+        }
+    }
+
+    @PutMapping("/chapters/{id}")
+    public ResponseEntity<String> updateChapter(@PathVariable Integer id, @RequestBody ChapterRequest chapterRequest) {
+        chapterRequest.setId(id);
+        boolean updated = chapterService.updateChapter(chapterRequest);
+        if(updated){
+            return ResponseEntity.ok("Capitulo actualizado");
+        } else {
+            return ResponseEntity.badRequest().body("No se pudo actualizar el capitulo.");
         }
     }
     
