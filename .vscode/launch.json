@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ZullyApplication<zully>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.exercise.zully.ZullyApplication",
+            "projectName": "zully",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
